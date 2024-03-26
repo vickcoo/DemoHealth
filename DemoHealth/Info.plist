@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>DemoHealth 需要讀取的權限來向您展示功能</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>DemoHealth 需要寫入的權限來向您展示功能</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

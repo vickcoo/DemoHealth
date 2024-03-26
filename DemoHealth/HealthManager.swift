@@ -12,43 +12,6 @@ import HealthKit
 class HealthManager {
     static let shared = HealthManager()
     static let store = HKHealthStore()
-    
-//    func writeFakeStepData() {
-//        let fakeDataKey = "FakeDataForDemo"
-//        
-//        var datas: [HKQuantitySample] = []
-//        for i in 1...10 {
-//            let type = HKObjectType.quantityType(forIdentifier: .stepCount)!
-//            let quantity = HKQuantity(unit: .count(), doubleValue: Double(i))
-//            let startDate = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date())!
-//            let endDate = Calendar.current.date(bySettingHour: 0, minute: 0, second: 1, of: Date())!
-//            let metadatas: [String: Any] = [
-//                HKMetadataKeyWasUserEntered: true,
-//                fakeDataKey: true
-//            ]
-//            
-//            let object = HKQuantitySample(type: type, quantity: quantity, start: startDate, end: endDate, metadata: metadatas)
-//            datas.append(object)
-//        }
-//        
-//        for i in 11...15 {
-//            let type = HKObjectType.quantityType(forIdentifier: .stepCount)!
-//            let quantity = HKQuantity(unit: .count(), doubleValue: Double(i))
-//            let startDate = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date())!
-//            let endDate = Calendar.current.date(bySettingHour: 0, minute: 0, second: 1, of: Date())!
-//            let metadatas: [String: Any] = [
-//                fakeDataKey: true
-//            ]
-//            
-//            let object = HKQuantitySample(type: type, quantity: quantity, start: startDate, end: endDate, metadata: metadatas)
-//            datas.append(object)
-//        }
-//        
-//        HealthManager.store.save(datas) { success, error in
-//            print("儲存資料成功狀態：\(success)")
-//            print(error?.localizedDescription ?? "")
-//        }
-//    }
 }
 
 // MARK: - 寫入資料
@@ -102,52 +65,8 @@ extension HealthManager {
         let object = HKCategorySample(type: type, value: value, start: startDate, end: endDate, metadata: metadatas)
         
         HealthManager.store.save(object) { success, error in
-            
-        }
-    }
-    
-    func writeWorkout() {
-        let energyBurned = HKQuantity(unit: .largeCalorie(), doubleValue: 213)
-        let distanceRunning = HKQuantity(unit: .meter(), doubleValue: 3120)
-        
-        let startDate = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date())!
-        let endDate = Calendar.current.date(bySettingHour: 1, minute: 0, second: 0, of: Date())!
-
-        let configuration = HKWorkoutConfiguration()
-        configuration.activityType = .running
-        configuration.lapLength = HKQuantity(unit: .meterUnit(with: .kilo), doubleValue: 3.1)
-        let workoutBuilder = HKWorkoutBuilder(healthStore: HealthManager.store, configuration: configuration, device: nil)
-        
-        var samples: [HKSample] = []
-        
-        let distanceType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)!
-        let distancePerInterval = HKQuantity(unit: HKUnit.meter(), doubleValue: 1300)
-        let distanceSample = HKQuantitySample(type: distanceType, quantity: distancePerInterval, start: startDate, end: endDate)
-        samples.append(distanceSample)
-        
-        workoutBuilder.add(samples) { success, error in
-        }
-        
-        let energyBurnedType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned)!
-        let energyBurnedPerInterval = HKQuantity(unit: HKUnit.largeCalorie(), doubleValue: 233)
-        let energyBurnedSample = HKQuantitySample(type: energyBurnedType, quantity: energyBurnedPerInterval, start: startDate, end: endDate)
-        samples.append(energyBurnedSample)
-        
-        workoutBuilder.add(samples) { success, error in
-        }
-        
-        workoutBuilder.beginCollection(withStart: startDate) { success, error in
-            
-        }
-        
-        workoutBuilder.endCollection(withEnd: endDate) { success, error in
-            
-        }
-        
-        workoutBuilder.finishWorkout { workout, error in
-            HealthManager.store.save(workout!) { success, err in
-                print("Success")
-            }
+            print("儲存資料成功狀態：\(success)")
+            print(error?.localizedDescription ?? "")
         }
     }
     

@@ -12,10 +12,10 @@ import HealthKit
 
 class ViewController: UIViewController {
 
-    // MARK: - IBOutlet
+    // MARK: IBOutlet
     @IBOutlet weak var tableView: UITableView!
     
-    // MARK: - 健康資料讀取權限
+    // MARK: 健康資料讀取權限
     let toRead: Set<HKObjectType> = [
         HKObjectType.quantityType(forIdentifier: .stepCount)!,
         HKObjectType.characteristicType(forIdentifier: .bloodType)!,
@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         HKObjectType.categoryType(forIdentifier: .menstrualFlow)!
     ]
     
-    // MARK: - 健康資料寫入權限
+    // MARK: 健康資料寫入權限
     let toShare: Set<HKSampleType> = [
         HKObjectType.quantityType(forIdentifier: .underwaterDepth)!,
         HKObjectType.quantityType(forIdentifier: .stepCount)!,
@@ -56,8 +56,6 @@ class ViewController: UIViewController {
                 }
                 
                 // MARK: 寫入資料
-                HealthManager.shared.writeWorkout()
-                // HealthManager.shared.writeFakeStepData()
                 // HealthManager.shared.writeUnderwaterDepth()
                 // HealthManager.shared.writeSleepAnalysis()
                 
@@ -69,7 +67,7 @@ class ViewController: UIViewController {
         }
     }
     
-    // MARK: 讀取資料
+    /// 讀取資料
     @objc func readHealthDatas() {
         datas.removeAll()
         
@@ -95,7 +93,7 @@ class ViewController: UIViewController {
             }
         }
         HealthManager.shared.readEnergyBurned { [weak self] value in
-            self?.datas.append(HealthData(name: "卡路里", value: value))
+            self?.datas.append(HealthData(name: "動態能量（卡路里）", value: value))
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
